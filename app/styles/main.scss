@@ -1,0 +1,25 @@
+$cell-size: 12px;
+
+.grid-row {
+  margin: 0;
+  padding: 0;
+}
+
+.grid-cell {
+  width: $cell-size;
+  height: $cell-size;
+  border: {
+    width: 1px;
+    style: solid;
+    color: rgb(0,0,0);
+  }
+  margin: 0;
+  display: inline-block;
+}
+
+.grid-cell-alive {
+  background-color: green;
+}
+.grid-cell-dead {
+  background-color: lightgrey;
+}

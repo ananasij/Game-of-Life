@@ -1,8 +1,9 @@
 import React from 'react';
+import Grid from './Grid';
 
 function App() {
     return (
-        <div>Ololo</div>
+        <Grid />
     );
 }
 
