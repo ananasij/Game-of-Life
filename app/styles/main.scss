@@ -1,6 +1,7 @@
 $cell-size: 12px;
 
 .grid-row {
+  @extend .clearfix;
   margin: 0;
   padding: 0;
 }
@@ -14,7 +15,8 @@ $cell-size: 12px;
     color: rgb(0,0,0);
   }
   margin: 0;
-  display: inline-block;
+  display: block;
+  float: left;
 }
 
 .grid-cell-alive {
@@ -22,4 +24,12 @@ $cell-size: 12px;
 }
 .grid-cell-dead {
   background-color: lightgrey;
+}
+
+.clearfix:after {
+  content: ".";
+  visibility: hidden;
+  display: block;
+  height: 0;
+  clear: both;
 }
