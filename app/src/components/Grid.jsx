@@ -7,7 +7,8 @@ class Grid extends React.Component {
             width: 50,
             height: 30,
             currentGrid: [],
-            runningID: null
+            runningID: null,
+            currentGeneration: 0
         };
     }
 
@@ -38,18 +39,19 @@ class Grid extends React.Component {
                 count += 1;
             }
         }
-        this.setState({ currentGrid: grid }, () => this.startGame());
+        this.setState({ currentGrid: grid, currentGeneration: 0 }, () => this.startGame());
     }
 
     calculateNextGenerationGrid() {
         const newGenerationGrid = [];
+        const currentGeneration = this.state.currentGeneration + 1;
         for (let i = 0; i < this.state.width; i += 1) {
             newGenerationGrid[i] = [];
             for (let j = 0; j < this.state.height; j += 1) {
                 newGenerationGrid[i][j] = this.calculateNextGenerationCell(i, j);
             }
         }
-        this.setState({ currentGrid: newGenerationGrid });
+        this.setState({ currentGrid: newGenerationGrid, currentGeneration });
     }
 
     calculateNextGenerationCell(x, y) {
@@ -136,6 +138,7 @@ class Grid extends React.Component {
                 <button onClick={() => this.startGame()}>Start</button>
                 <button onClick={() => this.pauseGame()}>Pause</button>
                 <button onClick={() => this.initGrid()}>Reset</button>
+                <p>Current generation: {this.state.currentGeneration}</p>
             </div>
         );
     }
