@@ -22,14 +22,7 @@ class Grid extends React.Component {
         let x;
         let y;
         let count = 0;
-        const grid = [];
-
-        for (let i = 0; i < width; i += 1) {
-            grid[i] = [];
-            for (let j = 0; j < height; j += 1) {
-                grid[i][j] = 0;
-            }
-        }
+        const grid = this.generateEmptyBoard();
 
         while (count < initialPopulation) {
             x = Math.floor(Math.random() * width);
@@ -40,6 +33,18 @@ class Grid extends React.Component {
             }
         }
         this.setState({ currentGrid: grid, currentGeneration: 0 }, () => this.startGame());
+    }
+
+    generateEmptyBoard() {
+        const { width, height } = this.state;
+        const grid = [];
+        for (let i = 0; i < width; i += 1) {
+            grid[i] = [];
+            for (let j = 0; j < height; j += 1) {
+                grid[i][j] = 0;
+            }
+        }
+        return grid;
     }
 
     calculateNextGenerationGrid() {
@@ -122,6 +127,16 @@ class Grid extends React.Component {
         }
     }
 
+    clearGrid() {
+        this.pauseGame();
+        this.setState(
+            {
+                currentGrid: this.generateEmptyBoard(),
+                currentGeneration: 0
+            }
+        );
+    }
+
     render() {
         const renderedGrid = [];
 
@@ -145,6 +160,7 @@ class Grid extends React.Component {
                 <button onClick={() => this.startGame()}>Start</button>
                 <button onClick={() => this.pauseGame()}>Pause</button>
                 <button onClick={() => this.initGrid()}>Reset</button>
+                <button onClick={() => this.clearGrid()}>Clear</button>
                 <p>Current generation: {this.state.currentGeneration}</p>
             </div>
         );
