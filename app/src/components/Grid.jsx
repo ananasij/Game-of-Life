@@ -6,7 +6,8 @@ class Grid extends React.Component {
         this.state = {
             width: 50,
             height: 30,
-            currentGrid: []
+            currentGrid: [],
+            runningID: null
         };
     }
 
@@ -37,7 +38,7 @@ class Grid extends React.Component {
                 count += 1;
             }
         }
-        this.setState({ currentGrid: grid });
+        this.setState({ currentGrid: grid }, () => this.startGame());
     }
 
     calculateNextGenerationGrid() {
@@ -99,6 +100,20 @@ class Grid extends React.Component {
         return this.state.currentGrid[x][y];
     }
 
+    startGame() {
+        if (!this.state.runningID) {
+            const runningID = setInterval(() => this.calculateNextGenerationGrid(), 500);
+            this.setState({ runningID });
+        }
+    }
+
+    pauseGame() {
+        if (this.state.runningID) {
+            clearInterval(this.state.runningID);
+            this.setState({ runningID: null });
+        }
+    }
+
     render() {
         const renderedGrid = [];
 
@@ -116,10 +131,11 @@ class Grid extends React.Component {
         }
 
         return (
-            <div
-                onClick={() => this.calculateNextGenerationGrid()}
-            >
+            <div>
                 {renderedGrid}
+                <button onClick={() => this.startGame()}>Start</button>
+                <button onClick={() => this.pauseGame()}>Pause</button>
+                <button onClick={() => this.initGrid()}>Reset</button>
             </div>
         );
     }
