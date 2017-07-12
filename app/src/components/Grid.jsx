@@ -102,6 +102,12 @@ class Grid extends React.Component {
         return this.state.currentGrid[x][y];
     }
 
+    setCellAlive(x, y) {
+        const currentGrid = this.state.currentGrid;
+        currentGrid[x][y] = 1;
+        this.setState({ currentGrid });
+    }
+
     startGame() {
         if (!this.state.runningID) {
             const runningID = setInterval(() => this.calculateNextGenerationGrid(), 500);
@@ -126,6 +132,7 @@ class Grid extends React.Component {
                     <div
                         key={''.concat(x, y)}
                         className={'grid-cell'.concat((this.getCell(x, y) ? ' grid-cell-alive' : ' grid-cell-dead'))}
+                        onClick={() => this.setCellAlive(x, y)}
                     />
                 );
             }
