@@ -7,6 +7,7 @@ class Grid extends React.Component {
             width: 50,
             height: 30,
             currentGrid: [],
+            speed: 500,
             runningID: null,
             currentGeneration: 0
         };
@@ -115,7 +116,10 @@ class Grid extends React.Component {
 
     startGame() {
         if (!this.state.runningID) {
-            const runningID = setInterval(() => this.calculateNextGenerationGrid(), 500);
+            const runningID = setInterval(
+                () => this.calculateNextGenerationGrid(),
+                this.state.speed
+            );
             this.setState({ runningID });
         }
     }
@@ -135,6 +139,15 @@ class Grid extends React.Component {
                 currentGeneration: 0
             }
         );
+    }
+
+    changeSpeed(speed) {
+        if (this.state.runningID) {
+            this.pauseGame();
+            this.setState({ speed }, this.startGame);
+        } else {
+            this.setState({ speed });
+        }
     }
 
     render() {
@@ -162,6 +175,9 @@ class Grid extends React.Component {
                 <button onClick={() => this.initGrid()}>Reset</button>
                 <button onClick={() => this.clearGrid()}>Clear</button>
                 <p>Current generation: {this.state.currentGeneration}</p>
+                <button onClick={() => this.changeSpeed(1000)}>Slow</button>
+                <button onClick={() => this.changeSpeed(500)}>Normal</button>
+                <button onClick={() => this.changeSpeed(250)}>Fast</button>
             </div>
         );
     }
