@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Grid extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            width: 50,
-            height: 30,
+            width: this.props.width,
+            height: this.props.height,
             currentGrid: [],
             speed: 500,
             runningID: null,
@@ -14,16 +15,21 @@ class Grid extends React.Component {
     }
 
     componentWillMount() {
-        this.initGrid();
+        this.initGrid(this.state.width, this.state.height);
     }
 
-    initGrid() {
-        const { width, height } = this.state;
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.width !== this.state.width) {
+            this.initGrid(nextProps.width, nextProps.height);
+        }
+    }
+
+    initGrid(width, height) {
         const initialPopulation = (width * height) / 4;
         let x;
         let y;
         let count = 0;
-        const grid = this.generateEmptyBoard();
+        const grid = this.generateEmptyBoard(width, height);
 
         while (count < initialPopulation) {
             x = Math.floor(Math.random() * width);
@@ -33,11 +39,13 @@ class Grid extends React.Component {
                 count += 1;
             }
         }
-        this.setState({ currentGrid: grid, currentGeneration: 0 }, () => this.startGame());
+        this.setState(
+            { width, height, currentGrid: grid, currentGeneration: 0 },
+            this.startGame
+        );
     }
 
-    generateEmptyBoard() {
-        const { width, height } = this.state;
+    generateEmptyBoard(width, height) {
         const grid = [];
         for (let i = 0; i < width; i += 1) {
             grid[i] = [];
@@ -135,7 +143,7 @@ class Grid extends React.Component {
         this.pauseGame();
         this.setState(
             {
-                currentGrid: this.generateEmptyBoard(),
+                currentGrid: this.generateEmptyBoard(this.state.width, this.state.height),
                 currentGeneration: 0
             }
         );
@@ -170,17 +178,36 @@ class Grid extends React.Component {
         return (
             <div>
                 {renderedGrid}
-                <button onClick={() => this.startGame()}>Start</button>
-                <button onClick={() => this.pauseGame()}>Pause</button>
-                <button onClick={() => this.initGrid()}>Reset</button>
-                <button onClick={() => this.clearGrid()}>Clear</button>
+                <button onClick={() => this.startGame()}>
+                    Start
+                </button>
+                <button onClick={() => this.pauseGame()}>
+                    Pause
+                </button>
+                <button onClick={() => this.initGrid(this.state.width, this.state.height)}>
+                    Reset
+                </button>
+                <button onClick={() => this.clearGrid()}>
+                    Clear
+                </button>
                 <p>Current generation: {this.state.currentGeneration}</p>
-                <button onClick={() => this.changeSpeed(1000)}>Slow</button>
-                <button onClick={() => this.changeSpeed(500)}>Normal</button>
-                <button onClick={() => this.changeSpeed(250)}>Fast</button>
+                <button onClick={() => this.changeSpeed(1000)}>
+                    Slow
+                </button>
+                <button onClick={() => this.changeSpeed(500)}>
+                    Normal
+                </button>
+                <button onClick={() => this.changeSpeed(250)}>
+                    Fast
+                </button>
             </div>
         );
     }
 }
+
+Grid.propTypes = {
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired
+};
 
 export default Grid;
