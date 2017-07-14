@@ -1,16 +1,40 @@
 import React from 'react';
 import Grid from './Grid';
+import Constants from './../Constants';
 
 class App extends React.Component {
+    static generateBoard(width, height, populationIndex) {
+        const grid = [];
+        for (let i = 0; i < width; i += 1) {
+            grid[i] = [];
+            for (let j = 0; j < height; j += 1) {
+                grid[i][j] = Math.round(Math.random() * populationIndex);
+            }
+        }
+        return grid;
+    }
+
+    static correctCoordinate(coordinate, offset, length) {
+        let corrected = coordinate + offset;
+
+        if (corrected === -1) {
+            corrected = length - 1;
+        } else if (corrected === length) {
+            corrected = 0;
+        }
+
+        return corrected;
+    }
+
     constructor() {
         super();
         this.state = {
-            width: 50,
-            height: 33,
+            width: Constants.gridSize.medium.width,
+            height: Constants.gridSize.medium.height,
             currentGrid: [],
-            speed: 1000,
+            speed: Constants.speed.normal,
             runningID: null,
-            currentGeneration: 0
+            currentGeneration: 1
         };
     }
 
@@ -19,10 +43,9 @@ class App extends React.Component {
     }
 
     initGrid(width, height) {
-        const grid = generateBoard(width, height, 0.65);
-
+        const grid = App.generateBoard(width, height, Constants.populationIndex);
         this.setState(
-            { width, height, currentGrid: grid, currentGeneration: 0 },
+            { width, height, currentGrid: grid, currentGeneration: 1 },
             this.startGame
         );
     }
@@ -55,8 +78,8 @@ class App extends React.Component {
         let correctedY;
         for (let i = -1; i <= 1; i += 1) {
             for (let j = -1; j <= 1; j += 1) {
-                correctedX = correctCoordinate(x, i, this.state.width);
-                correctedY = correctCoordinate(y, j, this.state.height);
+                correctedX = App.correctCoordinate(x, i, this.state.width);
+                correctedY = App.correctCoordinate(y, j, this.state.height);
 
                 if (this.getCell(correctedX, correctedY)) {
                     count += 1;
@@ -102,8 +125,8 @@ class App extends React.Component {
         this.pauseGame();
         this.setState(
             {
-                currentGrid: generateBoard(this.state.width, this.state.height, 0),
-                currentGeneration: 0
+                currentGrid: App.generateBoard(this.state.width, this.state.height, 0),
+                currentGeneration: 1
             }
         );
     }
@@ -119,14 +142,15 @@ class App extends React.Component {
         }
     }
 
-    resizeGrid(width, height) {
+    resizeGrid(size) {
+        const { width, height } = size;
         if (width !== this.state.width) {
             this.initGrid(width, height);
         }
     }
 
     render() {
-        const {width, height} = this.state;
+        const { width, height } = this.state;
         return (
             <div>
                 <Grid
@@ -140,38 +164,15 @@ class App extends React.Component {
                 <button onClick={() => this.pauseGame()}>Pause</button>
                 <button onClick={() => this.initGrid(width, height)}>Reset</button>
                 <button onClick={() => this.clearGrid()}>Clear</button>
-                <button onClick={() => this.changeSpeed(1000)}>Slow</button>
-                <button onClick={() => this.changeSpeed(500)}>Normal</button>
-                <button onClick={() => this.changeSpeed(250)}>Fast</button>
-                <button onClick={() => this.resizeGrid(50, 30)}>50 x 30</button>
-                <button onClick={() => this.resizeGrid(70, 50)}>70 x 50</button>
-                <button onClick={() => this.resizeGrid(100, 80)}>100 x 80</button>
+                <button onClick={() => this.changeSpeed(Constants.speed.slow)}>Slow</button>
+                <button onClick={() => this.changeSpeed(Constants.speed.normal)}>Normal</button>
+                <button onClick={() => this.changeSpeed(Constants.speed.fast)}>Fast</button>
+                <button onClick={() => this.resizeGrid(Constants.gridSize.small)}>Small</button>
+                <button onClick={() => this.resizeGrid(Constants.gridSize.medium)}>Medium</button>
+                <button onClick={() => this.resizeGrid(Constants.gridSize.large)}>Large</button>
             </div>
         );
     }
-}
-
-function generateBoard(width, height, populationIndex) {
-    const grid = [];
-    for (let i = 0; i < width; i += 1) {
-        grid[i] = [];
-        for (let j = 0; j < height; j += 1) {
-            grid[i][j] = Math.round(Math.random() * populationIndex);
-        }
-    }
-    return grid;
-}
-
-function correctCoordinate(coordinate, offset, length) {
-    let corrected = coordinate + offset;
-
-    if (corrected === -1) {
-        corrected = length - 1;
-    } else if (corrected === length) {
-        corrected = 0;
-    }
-
-    return corrected;
 }
 
 export default App;
