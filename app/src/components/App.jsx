@@ -160,8 +160,11 @@ class App extends React.Component {
                     handleCellClick={this.setCellAlive.bind(this)}
                 />
                 <p>Current generation: {this.state.currentGeneration}</p>
-                <button onClick={() => this.startGame()}>Start</button>
-                <button onClick={() => this.pauseGame()}>Pause</button>
+                <button
+                    onClick={() => this.state.runningID ? this.pauseGame() : this.startGame()}
+                >
+                    { this.state.runningID ? 'Pause' : 'Run' }
+                </button>
                 <button onClick={() => this.initGrid(width, height)}>Reset</button>
                 <button onClick={() => this.clearGrid()}>Clear</button>
                 <button onClick={() => this.changeSpeed(Constants.speed.slow)}>Slow</button>
