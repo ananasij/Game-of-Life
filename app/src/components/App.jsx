@@ -238,6 +238,12 @@ class App extends React.Component {
                         </button>
                     </div>
                 </div>
+                <div className="row">
+                    <div
+                        className="description"
+                        dangerouslySetInnerHTML={{ __html: Constants.descriptionText }}
+                    />
+                </div>
             </div>
         );
     }

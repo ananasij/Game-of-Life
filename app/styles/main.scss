@@ -10,6 +10,7 @@ $color-elements: rgb(60,196,124);
 $color-outline: rgba(60,196,124,0.5);
 $color-text-dark: rgb(30,57,42);
 $color-text-light: rgb(60,196,124);
+$color-link: rgb(233,200,131);
 $color-body: rgb(0,0,0);
 $font-text: 'Share Tech Mono', monospace;
 $font-title: 'Press Start 2P', cursive;
@@ -21,6 +22,10 @@ body {
 h1 {
   font-family: $font-title;
   text-align: center;
+}
+
+a {
+  color: $color-link;
 }
 
 .page-container {
@@ -117,4 +122,8 @@ h1 {
 
 .generation-counter {
   margin: 10px;
+}
+
+.description {
+  text-align: left;
 }
