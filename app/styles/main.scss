@@ -1,35 +1,113 @@
-$cell-size: 12px;
+@import url('https://fonts.googleapis.com/css?family=Share+Tech+Mono');
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
+
+$cell-size: 8px;
+$cell-border: 1px;
+$color-cell-alive: rgb(60,196,124);
+$color-cell-dead: rgb(30,57,42);
+$color-cell-border: rgb(0,0,0);
+$color-elements: rgb(60,196,124);
+$color-text-dark: rgb(30,57,42);
+$color-text-light: rgb(60,196,124);
+$color-body: rgb(0,0,0);
+$font-text: 'Share Tech Mono', monospace;
+$font-title: 'Press Start 2P', cursive;
+
+body {
+  background-color: $color-body;
+}
+
+h1 {
+  font-family: $font-title;
+  text-align: center;
+}
+
+.page-container {
+  max-width: 768px;
+  margin: auto;
+  text-align: center;
+  font-family: $font-text;
+  color: $color-text-light;
+
+}
+
+.row {
+  display: block;
+  margin: auto auto 15px auto;
+}
+
+.grid {
+  display: inline-block;
+}
 
 .grid-row {
-  @extend .clearfix;
+  display: table;
   margin: 0;
   padding: 0;
+  border-top: $cell-border solid $color-cell-border;
+  &:last-of-type {
+    border-bottom: $cell-border solid $color-cell-border;
+  }
 }
 
 .grid-cell {
-  width: $cell-size;
+  display: table-cell;
+  min-width: $cell-size;
+  max-width: $cell-size;
   height: $cell-size;
-  border: {
-    width: 1px;
-    style: solid;
-    color: rgb(0,0,0);
+  border-left: $cell-border solid $color-cell-border;
+  &:last-of-type {
+    border-right: $cell-border solid $color-cell-border;
   }
-  margin: 0;
-  display: block;
-  float: left;
 }
 
 .grid-cell-alive {
-  background-color: green;
+  background-color: $color-cell-alive;
 }
 .grid-cell-dead {
-  background-color: lightgrey;
+  background-color: $color-cell-dead;
 }
 
-.clearfix:after {
-  content: ".";
-  visibility: hidden;
-  display: block;
-  height: 0;
-  clear: both;
+.control-group {
+  display: inline-block;
+  text-align: right;
+}
+@media (min-width: 768px) {
+  .control-group {
+    width: 50%;
+    max-width: 350px;
+  }
+}
+@media (max-width: 768px) {
+  .control-group {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.control-group-label {
+  display: inline-block;
+  width: 55px;
+  text-align: left;
+}
+
+.button {
+  width: 70px;
+  height: 25px;
+  margin: 10px;
+  border: 0;
+  border-radius: 2px;
+  background-color: $color-elements;
+  color: $color-text-dark;
+  font: 14px $font-text;
+  &:focus {
+    outline: none;
+  }
+  &.active {
+    outline-color: $color-elements;
+  }
+}
+
+.generation-counter {
+  margin: 10px;
 }

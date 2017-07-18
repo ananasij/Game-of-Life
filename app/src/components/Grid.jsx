@@ -21,7 +21,7 @@ function Grid(props) {
     }
 
     return (
-        <div>
+        <div className="grid">
             {renderedGrid}
         </div>
     );

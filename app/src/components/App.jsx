@@ -152,27 +152,91 @@ class App extends React.Component {
     render() {
         const { width, height } = this.state;
         return (
-            <div>
-                <Grid
-                    currentGrid={this.state.currentGrid}
-                    width={width}
-                    height={height}
-                    handleCellClick={this.setCellAlive.bind(this)}
-                />
-                <p>Current generation: {this.state.currentGeneration}</p>
-                <button
-                    onClick={() => this.state.runningID ? this.pauseGame() : this.startGame()}
-                >
-                    { this.state.runningID ? 'Pause' : 'Run' }
-                </button>
-                <button onClick={() => this.initGrid(width, height)}>Reset</button>
-                <button onClick={() => this.clearGrid()}>Clear</button>
-                <button onClick={() => this.changeSpeed(Constants.speed.slow)}>Slow</button>
-                <button onClick={() => this.changeSpeed(Constants.speed.normal)}>Normal</button>
-                <button onClick={() => this.changeSpeed(Constants.speed.fast)}>Fast</button>
-                <button onClick={() => this.resizeGrid(Constants.gridSize.small)}>Small</button>
-                <button onClick={() => this.resizeGrid(Constants.gridSize.medium)}>Medium</button>
-                <button onClick={() => this.resizeGrid(Constants.gridSize.large)}>Large</button>
+            <div className="page-container">
+                <div className="row">
+                    <h1>Game of Life</h1>
+                </div>
+                <div className="row">
+                    <Grid
+                        currentGrid={this.state.currentGrid}
+                        width={width}
+                        height={height}
+                        handleCellClick={this.setCellAlive.bind(this)}
+                    />
+                </div>
+                <div className="row">
+                    <div className="control-group">
+                        <button
+                            className="button"
+                            onClick={
+                                () => this.state.runningID ? this.pauseGame() : this.startGame()
+                            }
+                        >
+                            { this.state.runningID ? 'Pause' : 'Run' }
+                        </button>
+                        <button
+                            className="button"
+                            onClick={() => this.initGrid(width, height)}
+                        >
+                            Reset
+                        </button>
+                        <button
+                            className="button"
+                            onClick={() => this.clearGrid()}
+                        >
+                            Clear
+                        </button>
+                    </div>
+                    <div className="control-group">
+                        <p className="generation-counter">
+                            Current generation: {this.state.currentGeneration}
+                        </p>
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="control-group">
+                        <span className="control-group-label">Speed:</span>
+                        <button
+                            className="button"
+                            onClick={() => this.changeSpeed(Constants.speed.slow)}
+                        >
+                            Slow
+                        </button>
+                        <button
+                            className="button"
+                            onClick={() => this.changeSpeed(Constants.speed.normal)}
+                        >
+                            Normal
+                        </button>
+                        <button
+                            className="button"
+                            onClick={() => this.changeSpeed(Constants.speed.fast)}
+                        >
+                            Fast
+                        </button>
+                    </div>
+                    <div className="control-group">
+                        <span className="control-group-label">Size:</span>
+                        <button
+                            className="button"
+                            onClick={() => this.resizeGrid(Constants.gridSize.small)}
+                        >
+                            Small
+                        </button>
+                        <button
+                            className="button"
+                            onClick={() => this.resizeGrid(Constants.gridSize.medium)}
+                        >
+                            Medium
+                        </button>
+                        <button
+                            className="button"
+                            onClick={() => this.resizeGrid(Constants.gridSize.large)}
+                        >
+                            Large
+                        </button>
+                    </div>
+                </div>
             </div>
         );
     }
