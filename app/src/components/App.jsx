@@ -151,6 +151,7 @@ class App extends React.Component {
 
     render() {
         const { width, height } = this.state;
+        const speed = this.state.speed;
         return (
             <div className="page-container">
                 <div className="row">
@@ -197,19 +198,19 @@ class App extends React.Component {
                     <div className="control-group">
                         <span className="control-group-label">Speed:</span>
                         <button
-                            className="button"
+                            className={'button'.concat(speed === Constants.speed.slow ? ' active' : '')}
                             onClick={() => this.changeSpeed(Constants.speed.slow)}
                         >
                             Slow
                         </button>
                         <button
-                            className="button"
+                            className={'button'.concat(speed === Constants.speed.normal ? ' active' : '')}
                             onClick={() => this.changeSpeed(Constants.speed.normal)}
                         >
                             Normal
                         </button>
                         <button
-                            className="button"
+                            className={'button'.concat(speed === Constants.speed.fast ? ' active' : '')}
                             onClick={() => this.changeSpeed(Constants.speed.fast)}
                         >
                             Fast
@@ -218,19 +219,19 @@ class App extends React.Component {
                     <div className="control-group">
                         <span className="control-group-label">Size:</span>
                         <button
-                            className="button"
+                            className={'button'.concat(width === Constants.gridSize.small.width ? ' active' : '')}
                             onClick={() => this.resizeGrid(Constants.gridSize.small)}
                         >
                             Small
                         </button>
                         <button
-                            className="button"
+                            className={'button'.concat(width === Constants.gridSize.medium.width ? ' active' : '')}
                             onClick={() => this.resizeGrid(Constants.gridSize.medium)}
                         >
                             Medium
                         </button>
                         <button
-                            className="button"
+                            className={'button'.concat(width === Constants.gridSize.large.width ? ' active' : '')}
                             onClick={() => this.resizeGrid(Constants.gridSize.large)}
                         >
                             Large

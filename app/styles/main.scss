@@ -1,12 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Share+Tech+Mono');
 @import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
 
-$cell-size: 8px;
+$cell-size: 9px;
 $cell-border: 1px;
 $color-cell-alive: rgb(60,196,124);
 $color-cell-dead: rgb(30,57,42);
 $color-cell-border: rgb(0,0,0);
 $color-elements: rgb(60,196,124);
+$color-outline: rgba(60,196,124,0.5);
 $color-text-dark: rgb(30,57,42);
 $color-text-light: rgb(60,196,124);
 $color-body: rgb(0,0,0);
@@ -23,7 +24,7 @@ h1 {
 }
 
 .page-container {
-  max-width: 768px;
+  max-width: 1000px;
   margin: auto;
   text-align: center;
   font-family: $font-text;
@@ -100,11 +101,17 @@ h1 {
   background-color: $color-elements;
   color: $color-text-dark;
   font: 14px $font-text;
+  &:hover {
+    cursor: pointer;
+  }
+  &:active {
+    box-shadow: 0 0 5px 5px $color-outline;
+  }
   &:focus {
     outline: none;
   }
   &.active {
-    outline-color: $color-elements;
+    box-shadow: 0 0 5px 5px $color-outline;
   }
 }
 
