@@ -1,0 +1,91 @@
+@import url(https://fonts.googleapis.com/css?family=Share+Tech+Mono);@import url(https://fonts.googleapis.com/css?family=Press+Start+2P);body {
+  background-color: black; }
+
+h1 {
+  font-family: "Press Start 2P", cursive;
+  text-align: center; }
+
+a {
+  color: #e9c883; }
+
+.page-container {
+  max-width: 1000px;
+  margin: auto;
+  text-align: center;
+  font-family: "Share Tech Mono", monospace;
+  color: #3cc47c; }
+
+.row {
+  display: block;
+  margin: auto auto 15px auto; }
+
+.grid {
+  display: inline-block; }
+
+.grid-row {
+  display: table;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid black; }
+  .grid-row:last-of-type {
+    border-bottom: 1px solid black; }
+
+.grid-cell {
+  display: table-cell;
+  min-width: 9px;
+  max-width: 9px;
+  height: 9px;
+  border-left: 1px solid black; }
+  .grid-cell:last-of-type {
+    border-right: 1px solid black; }
+
+.grid-cell-alive {
+  background-color: #3cc47c; }
+
+.grid-cell-dead {
+  background-color: #1e392a; }
+
+.control-group {
+  display: inline-block;
+  text-align: right; }
+
+@media (min-width: 768px) {
+  .control-group {
+    width: 50%;
+    max-width: 350px; } }
+
+@media (max-width: 768px) {
+  .control-group {
+    width: 100%;
+    text-align: center; } }
+
+.control-group-label {
+  display: inline-block;
+  width: 55px;
+  text-align: left; }
+
+.button {
+  width: 70px;
+  height: 25px;
+  margin: 10px;
+  border: 0;
+  border-radius: 2px;
+  background-color: #3cc47c;
+  color: #1e392a;
+  font: 14px "Share Tech Mono", monospace; }
+  .button:hover {
+    cursor: pointer; }
+  .button:active {
+    box-shadow: 0 0 5px 5px rgba(60, 196, 124, 0.5); }
+  .button:focus {
+    outline: none; }
+  .button.active {
+    box-shadow: 0 0 5px 5px rgba(60, 196, 124, 0.5); }
+
+.generation-counter {
+  margin: 10px; }
+
+.description {
+  text-align: left; }
+
+/*# sourceMappingURL=main.bundle.css.map*/
